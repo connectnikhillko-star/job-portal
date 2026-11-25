@@ -1,0 +1,209 @@
+/* ==========================================================================
+   Navbar styles
+   Scope: every selector starts with .navbar, so nothing leaks into the
+   Home page or other pages. Tokens mirror the Home page palette.
+   Sections: 1 Tokens · 2 Layout · 3 Brand · 4 Links · 5 Responsive
+             6 Reduced motion
+   ========================================================================== */
+
+/* 1. Tokens --------------------------------------------------------------- */
+.navbar {
+  --nav-pine: #0f3d3a;
+  --nav-pine-hover: #0b2f2d;
+  --nav-pine-soft: #e5f1ee;
+  --nav-bg: #ffffff;
+  --nav-text: #1b2b29;
+  --nav-muted: #52645f;
+  --nav-border: #d3e1dd;
+  --nav-radius: 0.625rem;
+}
+
+/* 2. Layout --------------------------------------------------------------- */
+.navbar,
+.navbar *,
+.navbar *::before,
+.navbar *::after {
+  box-sizing: border-box;
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--nav-border);
+  box-shadow: 0 1px 8px rgba(15, 61, 58, 0.06);
+  color: var(--nav-text);
+  color-scheme: light;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.4;
+  text-align: left;
+}
+
+.navbar__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  width: 100%;
+  max-width: 72rem;
+  min-height: 4rem;
+  margin: 0 auto;
+  padding: 0.5rem clamp(1rem, 4vw, 2rem);
+}
+
+/* 3. Brand ---------------------------------------------------------------- */
+.navbar .navbar__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  border-radius: var(--nav-radius);
+  color: var(--nav-pine);
+  font-size: 1.25rem;
+  font-weight: 750;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+
+.navbar .navbar__brand:hover {
+  color: var(--nav-pine-hover);
+}
+
+.navbar .navbar__brand:focus-visible {
+  outline: 3px solid var(--nav-pine);
+  outline-offset: 3px;
+}
+
+/* Text-only logo mark, no image or icon asset needed */
+.navbar__brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  background: var(--nav-pine);
+  border-radius: 0.5rem;
+  color: #ffffff;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* 4. Links ---------------------------------------------------------------- */
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.navbar .navbar__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.5rem;
+  padding: 0 0.875rem;
+  border: 1px solid transparent;
+  border-radius: var(--nav-radius);
+  color: var(--nav-muted);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.navbar .navbar__link:hover {
+  background: var(--nav-pine-soft);
+  color: var(--nav-pine);
+}
+
+.navbar .navbar__link:focus-visible {
+  outline: 3px solid var(--nav-pine);
+  outline-offset: 2px;
+}
+
+/* Active page (NavLink adds this class and aria-current="page") */
+.navbar .navbar__link--active {
+  background: var(--nav-pine-soft);
+  color: var(--nav-pine);
+}
+
+/* Register: primary call to action */
+.navbar .navbar__link--cta {
+  margin-left: 0.5rem;
+  padding: 0 1.125rem;
+  background: var(--nav-pine);
+  border-color: var(--nav-pine);
+  color: #ffffff;
+}
+
+.navbar .navbar__link--cta:hover {
+  background: var(--nav-pine-hover);
+  border-color: var(--nav-pine-hover);
+  color: #ffffff;
+}
+
+.navbar .navbar__link--cta.navbar__link--active {
+  background: var(--nav-pine-hover);
+  border-color: var(--nav-pine-hover);
+  color: #ffffff;
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px var(--nav-pine);
+}
+
+/* 5. Responsive ----------------------------------------------------------- */
+
+/* Small screens: tighter spacing so brand and links still fit on one row */
+@media (max-width: 36rem) {
+  .navbar__inner {
+    min-height: 3.5rem;
+  }
+
+  .navbar .navbar__brand {
+    font-size: 1.125rem;
+  }
+
+  .navbar .navbar__link {
+    padding: 0 0.625rem;
+  }
+
+  .navbar .navbar__link--cta {
+    margin-left: 0.25rem;
+    padding: 0 0.875rem;
+  }
+}
+
+/* Very small screens: links move to their own full-width row */
+@media (max-width: 28rem) {
+  .navbar__nav {
+    flex: 1 1 100%;
+  }
+
+  .navbar__links {
+    justify-content: space-between;
+    gap: 0.25rem;
+  }
+
+  .navbar__item {
+    flex: 1 1 auto;
+  }
+
+  .navbar .navbar__link {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .navbar .navbar__link--cta {
+    margin-left: 0;
+  }
+}
+
+/* 6. Reduced motion ------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .navbar .navbar__link {
+    transition: none;
+  }
+}
